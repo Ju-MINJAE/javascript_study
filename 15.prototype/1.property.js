@@ -1,3 +1,6 @@
+// 모든 객체는 내에 숨겨진 [Prototype]을 객체간 상속을 위해서 가지고 있음
+// 외부에서 직접 접근 불가, 객체간 상속의 연결은 포로토타입 체인으로 연결 되어 있음
+
 const dog = { name: '와우', emoji: '🐶' };
 
 console.log(Object.keys(dog));
