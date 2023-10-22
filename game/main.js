@@ -1,10 +1,11 @@
 'use strict';
 
 const CARROT_SIZE = 80;
-const CARROT_COUNT = 10;
-const BUG_COUNT = 10;
+// const CARROT_COUNT = 10;
+// const BUG_COUNT = 10;
 const GAME_DURATION_SEC = 10;
 
+const difficultySelect = document.getElementById('difficulty-select');
 const field = document.querySelector('.bottom_container');
 const fieldRect = field.getBoundingClientRect();
 const gameBtn = document.querySelector('.btn_Start');
@@ -24,8 +25,24 @@ const alertSound = new Audio('./sound/alert.wav');
 let started = false;
 let score = 0;
 let timer = undefined;
+let CARROT_COUNT;
+let BUG_COUNT;
 field.addEventListener('click', onFieldClick);
+
 gameBtn.addEventListener('click', () => {
+  const selectedDifficulty = difficultySelect.value;
+
+  if (selectedDifficulty === 'easy') {
+    CARROT_COUNT = 5;
+    BUG_COUNT = 5;
+  } else if (selectedDifficulty === 'medium') {
+    CARROT_COUNT = 10;
+    BUG_COUNT = 10;
+  } else if (selectedDifficulty === 'hard') {
+    CARROT_COUNT = 15;
+    BUG_COUNT = 15;
+  }
+
   if (started) {
     stopGame();
   } else {
@@ -33,12 +50,25 @@ gameBtn.addEventListener('click', () => {
   }
 });
 popUpRefresh.addEventListener('click', () => {
-  startGame();
   hidePopup();
+  const selectedDifficulty = difficultySelect.value;
+  if (selectedDifficulty === 'easy') {
+    CARROT_COUNT = 5;
+    BUG_COUNT = 5;
+  } else if (selectedDifficulty === 'medium') {
+    CARROT_COUNT = 10;
+    BUG_COUNT = 10;
+  } else if (selectedDifficulty === 'hard') {
+    CARROT_COUNT = 15;
+    BUG_COUNT = 15;
+  }
+  hideDifficultySelect();
+  startGame();
 });
 
 function startGame() {
   started = true;
+  hideDifficultySelect();
   initGame();
   showStopBtn();
   showTimerAndScore();
@@ -48,6 +78,7 @@ function startGame() {
 
 function stopGame() {
   started = false;
+  showDifficultySelect();
   stopGameTimer();
   hideGameBtn();
   showPopup('REPLAY❓');
@@ -57,6 +88,7 @@ function stopGame() {
 
 function finishGame(win) {
   started = false;
+  showDifficultySelect();
   hideGameBtn();
   if (win) {
     playSound(winSound);
@@ -179,4 +211,16 @@ function addItem(className, count, imgPath) {
 
 function randomNumber(min, max) {
   return Math.random() * (max - min) + min;
+}
+
+function hideDifficultySelect() {
+  difficultySelect.style.display = 'none';
+  document.querySelector('label[for="difficulty-select"]').style.display =
+    'none';
+}
+
+function showDifficultySelect() {
+  difficultySelect.style.display = 'block';
+  document.querySelector('label[for="difficulty-select"]').style.display =
+    'block';
 }
