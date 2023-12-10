@@ -1,5 +1,3 @@
-// 150fdae43130328ff80d0243ae84b633 SEOUL
-
 const container = document.querySelector('.container');
 const search = document.querySelector('.search-box button');
 const weatherBox = document.querySelector('.weather-box');
@@ -7,7 +5,7 @@ const weatherDetails = document.querySelector('.weather-details');
 const error404 = document.querySelector('.not-found');
 
 search.addEventListener('click', () => {
-  const APIKey = '150fdae43130328ff80d0243ae84b633';
+  const APIKey = 'API KEY';
   const city = document.querySelector('.search-box input').value;
 
   if (city === '') return;
