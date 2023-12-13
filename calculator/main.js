@@ -9,6 +9,14 @@ let calculated = false;
 
 function updateScreen() {
   screen.textContent = currentNum;
+
+  if (currentNum.length > 12) {
+    screen.style.fontSize = '30px';
+  } else if (currentNum.length > 8) {
+    screen.style.fontSize = '40px';
+  } else {
+    screen.style.fontSize = '';
+  }
 }
 
 function handleNumberClick(number) {
