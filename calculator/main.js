@@ -23,6 +23,10 @@ function handleNumberClick(number) {
   if (calculated) {
     currentNum = number;
     calculated = false;
+  } else if (number === '+/-' && currentNum !== '0') {
+    currentNum = currentNum.startsWith('-')
+      ? currentNum.slice(1)
+      : `-${currentNum}`;
   } else {
     currentNum = currentNum === '0' ? number : currentNum + number;
   }
@@ -105,12 +109,17 @@ buttons.addEventListener('click', (event) => {
   const clickedButton = event.target;
   const buttonValue = clickedButton.textContent;
 
-  if (clickedButton.classList.contains('number')) {
+  if (
+    clickedButton.classList.contains('number') ||
+    clickedButton.classList.contains('sign')
+  ) {
     handleNumberClick(buttonValue);
   } else if (clickedButton.classList.contains('operators')) {
     handleOperatorClick(buttonValue);
   } else if (clickedButton.classList.contains('equals')) {
     handleEqualsClick();
+  } else if (clickedButton.classList.contains('dot')) {
+    handleNumberClick(buttonValue);
   } else if (clickedButton.classList.contains('clear_num')) {
     clearCalculator();
   }
