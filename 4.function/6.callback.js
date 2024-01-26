@@ -1,4 +1,4 @@
-// 콜백함수
+// 콜백함수 - 다른 함수에 매개변수로 넘겨준 함수
 const add = (a, b) => a + b;
 const multifly = (a, b) => a * b;
 
