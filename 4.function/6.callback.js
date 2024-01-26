@@ -17,3 +17,19 @@ function calculator(a, b, action) {
 
 calculator(-1, 2, add);
 calculator(-1, 2, multifly);
+
+const words = [
+  'spary',
+  'limit',
+  'elite',
+  'exuberant',
+  'destruction',
+  'present',
+];
+function callback(element) {
+  console.log(element);
+  if (element.length > 6) return true;
+  else return false;
+}
+const newWords = words.filter(callback);
+console.log(newWords);
