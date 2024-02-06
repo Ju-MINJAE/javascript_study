@@ -84,7 +84,7 @@ document.addEventListener('DOMContentLoaded', function () {
   function setError(input, message) {
     const formControl = input.parentElement;
     const icon = formControl.querySelector('.icon');
-    formControl.className = 'form-contrl error';
+    formControl.className = 'form-control error';
     icon.className = 'icon fas fa-times-circle';
     input.placeholder = message;
   }
@@ -92,7 +92,7 @@ document.addEventListener('DOMContentLoaded', function () {
   function setSuccess(input) {
     const formControl = input.parentElement;
     const icon = formControl.querySelector('.icon');
-    formControl.className = 'form-contrl success';
+    formControl.className = 'form-control success';
     icon.className = 'icon fas fa-check-circle';
   }
 
@@ -109,11 +109,11 @@ document.addEventListener('DOMContentLoaded', function () {
     modal.style.display = 'block';
 
     const closeBtn = document.querySelector('.close-button');
-    closeBtn.onClick = function () {
+    closeBtn.onclick = function () {
       modal.style.display = 'none';
     };
 
-    window.onClick = function (event) {
+    window.onclick = function (event) {
       if (event.target === modal) {
         modal.style.display = 'none';
       }
