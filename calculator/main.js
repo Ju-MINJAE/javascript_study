@@ -19,51 +19,54 @@ function updateScreen() {
   }
 }
 
+function resetOperatorButtonStyles() {
+  const operatorButtons = document.querySelectorAll('.operators');
+  operatorButtons.forEach((button) => {
+    button.style.backgroundColor = '';
+    button.style.color = '';
+  });
+}
+
 function handleNumberClick(number) {
-  if (calculated) {
+  if (calculated || currentNum === '0') {
     currentNum = number;
     calculated = false;
-  } else if (number === '+/-' && currentNum !== '0') {
-    currentNum = currentNum.startsWith('-')
-      ? currentNum.slice(1)
-      : `-${currentNum}`;
+  } else if (number === '+/-') {
+    currentNum = (parseFloat(currentNum) * -1).toString();
   } else {
-    currentNum = currentNum === '0' ? number : currentNum + number;
+    currentNum += number;
   }
+  resetOperatorButtonStyles();
   updateScreen();
 }
 
 function handleOperatorClick(newOperator) {
-  updateScreen();
   if (operator !== null && prevNum !== null) {
-    currentNum = performCalculation();
-    prevNum = currentNum;
-  } else {
-    prevNum = currentNum;
-    currentNum = '';
+    currentNum = performCalculation().toString();
+    updateScreen();
   }
 
   if (newOperator === '=') {
     operator = null;
-
-    const operatorButtons = document.querySelectorAll('.operators');
-    operatorButtons.forEach((button) => {
-      button.style.backgroundColor = '';
-      button.style.color = '';
-    });
-    updateScreen();
+    prevNum = null;
+    calculated = true;
   } else {
     operator = newOperator;
+    prevNum = currentNum;
+    currentNum = '0';
+    calculated = false;
+  }
 
-    const operatorButtons = document.querySelectorAll('.operators');
-    operatorButtons.forEach((button) => {
-      button.style.backgroundColor = '';
-      button.style.color = '';
-      if (button.textContent === newOperator) {
-        button.style.backgroundColor = 'white';
-        button.style.color = 'black';
-      }
-    });
+  resetOperatorButtonStyles();
+
+  if (newOperator !== '=') {
+    const selectedButton = document.querySelector(
+      `.operators[data-operator="${newOperator}"]`
+    );
+    if (selectedButton) {
+      selectedButton.style.backgroundColor = 'white';
+      selectedButton.style.color = 'black';
+    }
   }
 }
 
